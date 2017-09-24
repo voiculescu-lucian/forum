@@ -60,7 +60,7 @@
 	                        </div>
 	                    </div>
 	                </form>
-
+	                <h3 class="title">Delete this thread</h3>
 	                <form class="form-horizontal" method="POST" action="/threads/{{ $thread->id }}/delete">
 	                    {{ csrf_field() }}
 	                    <input type="hidden" name="id" value="{{ $thread->id }}" >

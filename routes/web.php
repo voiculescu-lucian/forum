@@ -20,8 +20,10 @@ Route::get('/password/reset', 'Auth\ForgotPasswordController@reset')->name('pass
 Route::get('/profile', 'ProfileController@index')->name('profile');
 Route::post('/profile', 'ProfileController@update')->name('profile/update');
 
+Route::get('/threads', 'ThreadsController@index')->name('threads');
+Route::post('/threads', 'ThreadsController@store')->name('threads/create');
+Route::post('/threads/show', 'ThreadsController@filter')->name('threads/filter');
 Route::get('/threads/{thread}', 'ThreadsController@show');
 Route::post('/threads/{thread}', 'ThreadsController@update');
 Route::post('/threads/{thread}/delete', 'ThreadsController@destroy');
-Route::post('/threads', 'ThreadsController@store')->name('threads/create');
 Route::get('/home', 'HomeController@index')->name('home');

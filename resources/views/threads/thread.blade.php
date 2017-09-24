@@ -7,7 +7,8 @@
 		</h2>
 		<p>{{ $thread->created_at->toFormattedDateString() }}</p>
 		<div class="content-thread">
-			{{ $thread->content }}
+			{{ str_limit($thread->content, 75) }}
 		</div>
+		<a href="/threads/{{ $thread->id }}">Read more...</a>
 	</div>
 </div>

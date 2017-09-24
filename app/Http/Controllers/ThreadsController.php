@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ThreadValidation;
 use App\Thread;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class ThreadsController extends Controller
@@ -17,8 +18,12 @@ class ThreadsController extends Controller
 	public function index()
 	{
 		$threads = Thread::latest()->get();
+        $users = User::get();
 
-		return view('threads.index', ['threads' => $threads]);
+		return view('threads', [
+            'threads' => $threads,
+            'listUsers' => $users
+        ]);
 	}
 
 	public function destroy(Request $request)
@@ -127,5 +132,40 @@ class ThreadsController extends Controller
     	$message = 'Thread was created!';
 
     	return redirect('/profile')->with('greetings', $message);
+    }
+
+    public function filter(Request $request)
+    {
+        if($request->ajax()) {
+            if(!empty($_POST['sortBy'])) {
+                if($_POST['sortBy'] == '1') {
+                    $threads = Thread::latest()->get();
+                } else {
+                    $threads = Thread::orderBy('title', 'asc')->get(); 
+                }
+
+                $view = view('threads.filter', [
+                    'threads' => $threads
+                ])->render();
+                $content['html'] = $view;
+
+                return response()->json($content);
+            }
+
+            if(!empty($_POST['filter'])) {
+                $content['html'] = '';
+                foreach($_POST['filter'] as $filter) {
+                    $threads = Thread::where("user_id", "=", $filter)->get();
+
+                    $view = view('threads.filter', [
+                        'threads' => $threads
+                    ])->render();
+
+                    $content['html'] .= $view;
+                }
+                
+                return response()->json($content);
+            }
+        }
     }
 }
