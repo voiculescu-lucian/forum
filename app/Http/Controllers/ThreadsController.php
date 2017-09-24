@@ -68,12 +68,15 @@ class ThreadsController extends Controller
         ]);
 
         $updateThread = Thread::find($request->id);
-        $updateThread->fill($request->except(['id']));
+        $updateThread->fill([
+            'title' => $request->title,
+            'content' => $content
+        ]);
         $updateThread->save();
 
         $message = 'Thread was updated!';
 
-    	return redirect('/profile')->with('greetings', $message);
+    	return back()->with('greetings', $message);
 	}
 
     public function show(Thread $thread)

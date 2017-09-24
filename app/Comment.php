@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+	protected $fillable = ['id', 'thread_id', 'body'];
+
     public function thread()
     {
     	return $this->belongsTo(Thread::class);
@@ -14,5 +16,10 @@ class Comment extends Model
     public function user()
     {
     	return $this->belongsTo(User::class);
+    }
+
+    public function collaborators()
+    {
+        return $this->belongsToMany(Collaborator::class);
     }
 }

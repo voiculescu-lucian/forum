@@ -26,4 +26,5 @@ Route::post('/threads/show', 'ThreadsController@filter')->name('threads/filter')
 Route::get('/threads/{thread}', 'ThreadsController@show');
 Route::post('/threads/{thread}', 'ThreadsController@update');
 Route::post('/threads/{thread}/delete', 'ThreadsController@destroy');
+Route::post('/threads/{thread}/comments', 'CommentsController@store');
 Route::get('/home', 'HomeController@index')->name('home');

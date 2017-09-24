@@ -46,8 +46,8 @@ class ProfileController extends Controller
             'password' => \Hash::make($request->password)
         ])->save();
 
-        $message = 'Profile was updated';
+        $greetings = 'Profile was updated';
 
-		return redirect()->back()->with('threadCreated', $message);
+		return redirect()->back()->with('greetings', $greetings);
 	}
 }
